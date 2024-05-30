@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Hide Meet Tab",
+  "version": "1.0",
+  "description": "Move Google Meet tab to a new window without focusing.",
+  "permissions": [
+    "tabs",
+    "windows"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
