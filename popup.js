@@ -5,3 +5,11 @@ document.getElementById('moveTab').addEventListener('click', () => {
     }
   });
 });
+
+document.getElementById('bringBackTab').addEventListener('click', () => {
+  chrome.runtime.sendMessage({ action: "bringBackMeetTab" }, (response) => {
+    if (response && response.status === "done") {
+      console.log("Tab brought back successfully");
+    }
+  });
+});

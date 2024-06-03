@@ -6,29 +6,54 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
+      background-color: #22577A;
       margin: 20px;
+      border:none;
     }
-    h2 {
-      color: #333;
-    }
-    #moveTab {
-      background-color: #4CAF50;
+    h3 {
       color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
     }
-    #moveTab:hover {
-      background-color: #45a049;
+    .button {
+      background-color: #80ED99;
+      display: flex;
+      color: #22577A;
+      padding: 10px 35px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      margin: 3px;
+      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #75ed91;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .backButton {
+      background-color: #22577A;
+      color: #80ED99;
+      cursor: pointer;
+      border: none;
+      font-size: 10px;
+      margin-top: 15px;
+      transition: background-color 0.3s ease, font-size 0.3s ease;
+    }
+
+    .backButton:hover {
+      background-color: #19334d;
+      border-radius: 2px;
+      font-size: 11px;
     }
   </style>
 </head>
 <body>
-  <h2>Study?</h2>
-  <button id="moveTab">Yes</button>
+  <h3>Study?</h3>
+  <button class="button" id="moveTab">Yes</button>
+  <button class="backButton" id="bringBackTab">Back</button>
   <script src="popup.js"></script>
 </body>
 </html>
