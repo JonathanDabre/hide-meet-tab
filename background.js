@@ -19,6 +19,7 @@ function moveMeetTabToHiddenWindow() {
     if (tabs.length > 0) {
       const meetTab = tabs[0];
       originalWindowId = meetTab.windowId; // Store the original window ID
+      chrome.storage.local.set({ originalWindowId: originalWindowId }); // Save to storage
       chrome.windows.create({ state: 'minimized' }, (newWindow) => {
         chrome.tabs.move(meetTab.id, { windowId: newWindow.id, index: -1 }, () => {
           chrome.windows.update(newWindow.id, { state: 'minimized' });
@@ -31,16 +32,21 @@ function moveMeetTabToHiddenWindow() {
 }
 
 function bringBackMeetTab() {
-  chrome.tabs.query({ url: "*://meet.google.com/*" }, (tabs) => {
-    if (tabs.length > 0) {
-      const meetTab = tabs[0];
-      if (originalWindowId !== undefined) { // Check if originalWindowId is valid
-        chrome.tabs.move(meetTab.id, { windowId: originalWindowId, index: -1 });
+  chrome.storage.local.get('originalWindowId', (result) => {
+    originalWindowId = result.originalWindowId;
+    chrome.tabs.query({ url: "*://meet.google.com/*" }, (tabs) => {
+      if (tabs.length > 0) {
+        const meetTab = tabs[0];
+        if (originalWindowId !== undefined) { // Check if originalWindowId is valid
+          chrome.tabs.move(meetTab.id, { windowId: originalWindowId, index: -1 }, () => {
+            chrome.storage.local.remove('originalWindowId'); // Clear storage after moving back
+          });
+        } else {
+          console.log("Original window ID is not available.");
+        }
       } else {
-        console.log("Original window ID is not available.");
+        console.log("No Google Meet tab found.");
       }
-    } else {
-      console.log("No Google Meet tab found.");
-    }
+    });
   });
 }
